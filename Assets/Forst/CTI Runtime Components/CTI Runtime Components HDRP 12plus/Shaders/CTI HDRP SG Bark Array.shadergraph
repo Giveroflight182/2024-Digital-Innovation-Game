@@ -2180,7 +2180,7 @@
     "m_Guid": {
         "m_GuidSerialized": "22124895-bee4-40c3-b388-374e06c3c1b6"
     },
-    "m_Name": "Normal Map (GA) Specular (R) AO (B) Array",
+    "m_Name": "Normal Map (GA) AO (B) Array",
     "m_DefaultRefNameVersion": 0,
     "m_RefNameGeneratedByDisplayName": "",
     "m_DefaultReferenceName": "Texture2DArray_9A50DE49",
@@ -2919,7 +2919,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Texture2DArrayMaterialSlot",
     "m_ObjectId": "abaf405dc22bff8a866843dde6df43cc",
     "m_Id": 0,
-    "m_DisplayName": "Normal Map (GA) Specular (R) AO (B) Array",
+    "m_DisplayName": "Normal Map (GA) AO (B) Array",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

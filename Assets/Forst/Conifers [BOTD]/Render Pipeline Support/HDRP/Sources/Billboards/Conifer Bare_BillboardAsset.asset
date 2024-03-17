@@ -10,7 +10,7 @@ BillboardAsset:
   serializedVersion: 2
   width: 13.609983
   bottom: -0.93216324
-  height: 13.609983
+  height: 27.21996
   imageTexCoords:
   - {x: 0, y: 0, z: 0.25, w: 0.5}
   vertices:

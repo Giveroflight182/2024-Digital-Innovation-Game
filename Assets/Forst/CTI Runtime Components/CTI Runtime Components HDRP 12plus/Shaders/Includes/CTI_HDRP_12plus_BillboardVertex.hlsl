@@ -65,14 +65,14 @@ void CTIBillboard_float (
 	out float3 o_positionOS,
 	out float3 o_normalOS,
 	out float3 o_tangentOS,
-	out float2 o_uv,
-	out float o_cv
+	out float4 o_uv,				// is float4 now
+	out float2 o_cv			    	// x blend, y color variation
 ) {
 
 	float3 position = positionOS;
 	float3 positionWS = positionOS + CTI_GetObjectAbsolutePositionWS();
 //	Get Color Variation
-	o_cv = saturate ( ( frac(positionWS.x + positionWS.y + positionWS.z) + frac( (positionWS.x + positionWS.y + positionWS.z) * 3.3 ) ) * 0.5 );
+	o_cv.y = saturate ( ( frac(positionWS.x + positionWS.y + positionWS.z) + frac( (positionWS.x + positionWS.y + positionWS.z) * 3.3 ) ) * 0.5 );
 
 // 	////////////////////////////////////
 //	Set vertex position
@@ -81,13 +81,14 @@ void CTIBillboard_float (
 	//float3 eyeVec = normalize(unity_BillboardCameraPosition - positionWS);
 	float3 eyeVec = GetWorldSpaceNormalizeViewDir(positionRWS);
 
+//	NOTE: We have incorrect triangle winding...
 	float3 billboardTangent = normalize(float3(-eyeVec.z, 0, eyeVec.x));
 	float3 billboardNormal = -float3(billboardTangent.z, 0, -billboardTangent.x); // -float3! due to false triangle winding
 
 	float2 percent = uv.xy;
 	float3 billboardPos;
 	billboardPos.xz = (percent.x - 0.5) * unity_BillboardSize.x * uv1.x * billboardTangent.xz;
-	billboardPos.y = (percent.y * unity_BillboardSize.y * 2.0 + unity_BillboardSize.z) * uv1.y;
+	billboardPos.y = (percent.y * unity_BillboardSize.y + unity_BillboardSize.z) * uv1.y;
 	
 // 	////////////////////////////////////
 //	Wind
@@ -141,8 +142,27 @@ void CTIBillboard_float (
 	column_row.y = saturate(4.0 - imageIndex) * 0.5;
 	o_uv.xy = column_row + uv.xy * float2(0.25, 0.5);
 
+
+//	/////////////////////////
+	float percentage = frac(angle / (PI / 4));
+//	So percentage 0 - 1: 0 - 0.5 = next texture / 0.5 - 1 prev texture
+	imageIndex = (percentage < 0.5) ? imageIndex + 1.0 : imageIndex - 1.0;	
+//	Needed!
+	imageIndex = (imageIndex < 0.0) ? 7.0 : imageIndex;
+	imageIndex = (imageIndex > 7.0) ? 0.0 : imageIndex;
+
+	column_row.x = imageIndex * 0.25; // we do not care about the horizontal coord that much as our billboard texture tiles
+	column_row.y = saturate(4.0 - imageIndex) * 0.5;
+	o_uv.zw = column_row + uv.xy * float2(0.25, 0.5);
+
 // 	////////////////////////////////////
 //	Set Normal and Tangent
 	o_normalOS = billboardNormal.xyz;
 	o_tangentOS = billboardTangent.xyz;
+
+// 	////////////////////////////////////
+//	Set Blend value
+	o_cv.x = (percentage < 0.5) ? (percentage * 2.0) : (1.0 - percentage * 2.0);
+	//o_cv.x = smoothstep (0, 1, o_cv.x); // Nope
+
 }
