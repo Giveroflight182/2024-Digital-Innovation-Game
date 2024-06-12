@@ -3485,7 +3485,7 @@ MonoBehaviour:
     invertFade: 1
     distanceFadeStart: 100
     distanceFadeEnd: 1000
-    textureOffset: {x: 0, y: 0, z: 0}
+    textureOffset: {x: -0, y: -0, z: -0}
     falloffMode: 1
     maskMode: 0
     materialMask: {fileID: 0}
@@ -15313,7 +15313,7 @@ PrefabInstance:
     - target: {fileID: 5577633930727254586, guid: 2b0fcb8ed32b54149bb0806cd80e2243,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -148.47324
+      value: 381
       objectReference: {fileID: 0}
     - target: {fileID: 5577633930727254586, guid: 2b0fcb8ed32b54149bb0806cd80e2243,
         type: 3}
