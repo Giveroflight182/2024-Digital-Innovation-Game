@@ -3,24 +3,30 @@ using UnityEngine.AI;
 
 public class EnemyControl : MonoBehaviour
 {
+    // Enemy properties
+    public int health = 100; // Default health
+    public string weapon = "Sword";
+    public string model = "CreepModel"; // You may use this to define behavior or appearance
+    public Color color = Color.green; // Default color
+
+
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
-    public float health;
+    public EnemySpawn EnemySpawncs;
 
-    public float jumpForce = 10f; // The force applied when jumping
-    public float groundCheckDistance = 0.1f; // Distance to check for ground
+    
     public LayerMask groundLayer; // Layer to consider as ground
-    private bool isGrounded;
+ 
 
     // Patrolling
     public Vector3 walkPoint;
-    bool walkPointSet;
+    private bool walkPointSet;
     public float walkPointRange;
 
     // Attacking
     public float timeBetweenAttacks;
-    bool alreadyAttacked;
+    private bool alreadyAttacked;
     public GameObject projectile;
 
     // States
@@ -28,17 +34,40 @@ public class EnemyControl : MonoBehaviour
     public bool playerInSightRange, playerInAttackRange;
 
     private Rigidbody rb;
-    private bool jumpRequested;
+   
 
     private void Awake()
     {
-        player = GameObject.Find("PlayerObj").transform;
+        player = GameObject.Find("PlayerObj")?.transform; // Use null-conditional operator
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
 
         // Adjust Rigidbody constraints and center of mass
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         rb.centerOfMass = new Vector3(0, -0.5f, 0); // Adjust as needed
+
+        // Initialize the enemy with specific properties
+        InitializeEnemy();
+    }
+
+    private void InitializeEnemy()
+    {
+        // Example initialization logic (can be adjusted based on your game)
+        health = 100; // Set health
+        weapon = "Sword"; // Set weapon
+        model = "CreepModel"; // Set model
+        color = Color.green; // Set color
+        SetEnemyColor(color); // Apply color to the enemy
+    }
+
+    private void SetEnemyColor(Color newColor)
+    {
+        // Set the color of the enemy's material (assuming it has a Renderer)
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material.color = newColor; // Set the color
+        }
     }
 
     private void Update()
@@ -51,47 +80,12 @@ public class EnemyControl : MonoBehaviour
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
 
-        // Check if the enemy is grounded
-        isGrounded = CheckIfGrounded();
-
-        // Request jump if the velocity is close to zero and the enemy is grounded
-        if (Mathf.Approximately(rb.velocity.magnitude, 0f) && isGrounded && !jumpRequested)
-        {
-            jumpRequested = true; // Prevent multiple jumps
-            Jump();
-        }
+       
     }
 
-    private bool CheckIfGrounded()
-    {
-        // Use a raycast to check if the AI is grounded
-        return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundLayer);
-    }
+    
 
-    private void Jump()
-    {
-        if (agent.enabled)
-        {
-            agent.enabled = false; // Temporarily disable the NavMeshAgent
-        }
-
-        // Ensure no rotation is applied and reset vertical velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        rb.angularVelocity = Vector3.zero; // Reset any angular velocity
-
-        // Re-enable the NavMeshAgent after a short delay
-        Invoke(nameof(ReenableNavMeshAgent), 1f);
-    }
-
-    private void ReenableNavMeshAgent()
-    {
-        if (!agent.enabled)
-        {
-            agent.enabled = true;
-        }
-        jumpRequested = false; // Allow jumping again
-    }
+    
 
     private void Patroling()
     {
@@ -126,6 +120,7 @@ public class EnemyControl : MonoBehaviour
 
     private void AttackPlayer()
     {
+        Debug.Log("Not shoot");
         // Make sure the enemy doesn't move
         agent.SetDestination(transform.position);
 
@@ -137,6 +132,7 @@ public class EnemyControl : MonoBehaviour
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
             rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            Debug.Log("shoot");
             // End of attack code
 
             alreadyAttacked = true;
@@ -149,7 +145,7 @@ public class EnemyControl : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage) // Change to float for consistency if needed
     {
         health -= damage;
 
