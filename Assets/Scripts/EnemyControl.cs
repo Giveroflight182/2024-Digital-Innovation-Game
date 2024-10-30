@@ -131,7 +131,7 @@ public class EnemyControl : MonoBehaviour
             // Attack code here
             Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            rb.AddForce(transform.up * 20f, ForceMode.Impulse);
             Debug.Log("shoot");
             // End of attack code
 

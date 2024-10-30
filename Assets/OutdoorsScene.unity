@@ -1817,7 +1817,7 @@ GameObject:
   - component: {fileID: 283102777}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Bad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8641,37 +8641,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 878550184}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &887795931
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 887795932}
-  m_Layer: 0
-  m_Name: GameObject (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &887795932
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 887795931}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1698.8655, y: -14.435719, z: -922.9889}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1758843030}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &891852591 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 245031530180889284, guid: 45bd0666c450080469c680eea828257c,
@@ -11264,6 +11233,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1842232478}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9335bd0a04b5ba844a22ec4d546a14c8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1842232480}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9335bd0a04b5ba844a22ec4d546a14c8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1842232479}
     - targetCorrespondingSourceObject: {fileID: 6526725154102792923, guid: 9335bd0a04b5ba844a22ec4d546a14c8,
         type: 3}
       insertIndex: -1
@@ -19043,7 +19020,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 494477339}
-  - {fileID: 887795932}
   - {fileID: 118245862}
   - {fileID: 1277042153}
   m_Father: {fileID: 0}
@@ -19063,10 +19039,11 @@ MonoBehaviour:
   creepPrefab: {fileID: 2007393404}
   spawnLocations:
   - {fileID: 494477338}
-  - {fileID: 887795931}
+  - {fileID: 0}
   - {fileID: 118245861}
   - {fileID: 1277042152}
   numberOfEnemiesToSpawn: 4
+  spawnPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &1768118761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19634,6 +19611,32 @@ MonoBehaviour:
   defaultHeight: 2
   crouchHeight: 1
   crouchSpeed: 3
+--- !u!114 &1842232479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842232470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9495bee4b54b44092ec69e5ea34ecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+--- !u!114 &1842232480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842232470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7eb99a761543e4f8753b2aa07afb79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1001 &1877630496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20555,7 +20558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  weapon: Sword
+  weapon: Knife
   model: CreepModel
   color: {r: 0, g: 1, b: 0, a: 1}
   agent: {fileID: 2007393410}
@@ -20566,6 +20569,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
+  EnemySpawncs: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 128

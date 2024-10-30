@@ -4,7 +4,7 @@ public class EnemySpawn : MonoBehaviour
 {
     public GameObject creepPrefab; // Assign your creep prefab in the inspector
     public GameObject[] spawnLocations; // Array for spawn locations
-    public int numberOfEnemiesToSpawn = 4; // Number of enemies to spawn
+    public int numberOfEnemiesToSpawn = 3; // Number of enemies to spawn
     public Vector3 spawnPosition;
 
     private void Start()
