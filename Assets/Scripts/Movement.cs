@@ -23,6 +23,8 @@ public class Movement : MonoBehaviour
     //Allows the character to be able to move 
     private bool canMove = true;
 
+    public float health = 1f;
+
     void Start()
     {
         //Fully controls the characters input by allowing it to run, walk, crouch, jump etc.  
